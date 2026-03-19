@@ -34,23 +34,23 @@ resource "aws_key_pair" "verifact" {
   public_key = var.public_key
 }
 
-# SSM Parameter Store: one parameter per app env var (path /ai-league/app/<KEY>)
+# SSM Parameter Store: one parameter per app env var (path /ai/app/<KEY>)
 resource "aws_ssm_parameter" "app_env" {
   for_each = toset(var.app_env_keys)
 
-  name        = "/ai-league/app/${each.key}"
+  name        = "/ai/app/${each.key}"
   type        = "SecureString"
   value       = var.app_env[each.key]
-  description = "App env var ${each.key} for ai-league"
+  description = "App env var ${each.key} for ai"
 
   tags = {
-    Project = "ai-league"
+    Project = "ai"
   }
 }
 
-# IAM role for EC2: allow reading SSM parameters under /ai-league/app/
+# IAM role for EC2: allow reading SSM parameters under /ai/app/
 resource "aws_iam_role" "app" {
-  name = "ai-league-app-role"
+  name = "ai-app-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -63,11 +63,11 @@ resource "aws_iam_role" "app" {
     }]
   })
 
-  tags = { Project = "ai-league" }
+  tags = { Project = "ai" }
 }
 
 resource "aws_iam_role_policy" "app_ssm" {
-  name = "ai-league-app-ssm"
+  name = "ai-app-ssm"
   role = aws_iam_role.app.id
 
   policy = jsonencode({
@@ -75,20 +75,20 @@ resource "aws_iam_role_policy" "app_ssm" {
     Statement = [{
       Effect   = "Allow"
       Action   = ["ssm:GetParametersByPath", "ssm:GetParameters", "ssm:GetParameter"]
-      Resource = "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/ai-league/app/*"
+      Resource = "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/ai/app/*"
     }]
   })
 }
 
 resource "aws_iam_instance_profile" "app" {
-  name = "ai-league-app-profile"
+  name = "ai-app-profile"
   role = aws_iam_role.app.name
 }
 
 # Security group: SSH + Streamlit (WanderAI / agentic-travel-main)
 resource "aws_security_group" "app" {
-  name        = "ai-league-app-sg"
-  description = "SSH and app ports for ai-league EC2"
+  name        = "ai-app-sg"
+  description = "SSH and app ports for ai EC2"
 
   ingress {
     description = "SSH"
@@ -114,8 +114,8 @@ resource "aws_security_group" "app" {
   }
 
   tags = {
-    Name    = "ai-league-app-sg"
-    Project = "ai-league"
+    Name    = "ai-app-sg"
+    Project = "ai"
   }
 }
 
@@ -140,8 +140,8 @@ resource "aws_instance" "app" {
   }
 
   tags = {
-    Name    = "ai-league-app"
-    Project = "ai-league"
+    Name    = "ai-app"
+    Project = "ai"
   }
 }
 
@@ -151,7 +151,7 @@ resource "aws_eip" "app" {
   domain   = "vpc"
 
   tags = {
-    Name    = "ai-league-app-eip"
-    Project = "ai-league"
+    Name    = "ai-app-eip"
+    Project = "ai"
   }
 }

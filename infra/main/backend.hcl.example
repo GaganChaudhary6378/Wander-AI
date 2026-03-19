@@ -1,8 +1,8 @@
 # Copy to backend.hcl and set values from bootstrap outputs.
 # terraform init -backend-config=backend.hcl
 
-bucket         = "your-org-ai-league-tfstate"
-key            = "ai-league/main/terraform.tfstate"
+bucket         = "your-org-ai-tfstate"
+key            = "ai/main/terraform.tfstate"
 region         = "us-east-1"
-dynamodb_table = "ai-league-tfstate-lock"
+dynamodb_table = "ai-tfstate-lock"
 encrypt        = true

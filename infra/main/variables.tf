@@ -31,7 +31,7 @@ variable "app_env_keys" {
 }
 
 variable "app_env" {
-  description = "Map of env var name to value; stored in SSM Parameter Store under /ai-league/app/"
+  description = "Map of env var name to value; stored in SSM Parameter Store under /ai/app/"
   type        = map(string)
   default     = {}
   sensitive   = true

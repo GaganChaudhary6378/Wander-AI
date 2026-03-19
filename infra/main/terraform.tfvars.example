@@ -11,7 +11,7 @@
 # instance_type   = "t3.small"
 # root_volume_size_gb = 20
 
-# App env vars stored in SSM Parameter Store (path /ai-league/app/<KEY>).
+# App env vars stored in SSM Parameter Store (path /ai/app/<KEY>).
 # EC2 fetches them at deploy time via fetch-env-from-ssm.sh. Do not commit real values.
 # app_env = {
 #   "OPENAI_API_KEY"         = "sk-..."

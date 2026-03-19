@@ -26,7 +26,7 @@ resource "aws_s3_bucket" "tf_state" {
 
   tags = {
     Name        = var.state_bucket_name
-    Project     = "ai-league"
+    Project     = "ai"
     Environment = "bootstrap"
   }
 }
@@ -71,7 +71,7 @@ resource "aws_dynamodb_table" "tf_lock" {
 
   tags = {
     Name        = var.lock_table_name
-    Project     = "ai-league"
+    Project     = "ai"
     Environment = "bootstrap"
   }
 }

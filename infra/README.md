@@ -56,7 +56,7 @@ Provide the **contents** of your public key so Terraform can create the key pair
 
 ### App env vars (Parameter Store)
 
-App environment variables (e.g. from `agentic-travel-main/.env`) are stored in **AWS Systems Manager Parameter Store** under the path `/ai-league/app/<KEY>`. The EC2 instance has an IAM role that can read these; at deploy time, `fetch-env-from-ssm.sh` writes them to `~/.env` on the EC2 for docker-compose.
+App environment variables (e.g. from `agentic-travel-main/.env`) are stored in **AWS Systems Manager Parameter Store** under the path `/ai/app/<KEY>`. The EC2 instance has an IAM role that can read these; at deploy time, `fetch-env-from-ssm.sh` writes them to `~/.env` on the EC2 for docker-compose.
 
 In `infra/main/terraform.tfvars` (do not commit), set a map of env names to values:
 
