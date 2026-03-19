@@ -1,0 +1,13 @@
+# Production compose: WanderAI (agentic-travel-main) — single Streamlit app.
+# TAG is substituted by deploy.sh (e.g. latest, v1.0.0).
+
+services:
+  app:
+    image: gagan:${TAG}
+    platform: linux/amd64
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    stdin_open: true
+    tty: true

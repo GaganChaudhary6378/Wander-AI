@@ -1,0 +1,29 @@
+# Copy to terraform.tfvars and set public_key.
+# Option 1: Copy your public key into this directory (and add verifact-key.pub to .gitignore):
+#   cp ~/.ssh/verifact-key.pub infra/main/verifact-key.pub
+#   public_key = file("${path.module}/verifact-key.pub")
+#
+# Option 2: Pass at apply time (no file in repo):
+#   export TF_VAR_public_key="$(cat ~/.ssh/verifact-key.pub)"
+#   terraform apply
+
+# aws_region      = "ap-south-1"
+# instance_type   = "t3.small"
+# root_volume_size_gb = 20
+
+# App env vars stored in SSM Parameter Store (path /ai-league/app/<KEY>).
+# EC2 fetches them at deploy time via fetch-env-from-ssm.sh. Do not commit real values.
+# app_env = {
+#   "OPENAI_API_KEY"         = "sk-..."
+#   "SERPAPI_API_KEY"        = "..."
+#   "GOOGLE_PLACES_API_KEY"  = "..."
+#   "OPENWEATHERMAP_API_KEY" = "..."
+#   "GOOGLE_MAPS_API_KEY"    = "..."
+#   "TAVILY_API_KEY"         = "..."
+#   "EXA_API_KEY"            = "..."
+#   "RAPIDAPI_KEY"           = "..."
+#   "RAILRADAR_API_KEY"      = "..."
+#   "DEMO_MODE"              = "auto"
+#   "LLM_PROVIDER"           = "openai"
+#   "LLM_MODEL"              = "gpt-4o-mini"
+# }
